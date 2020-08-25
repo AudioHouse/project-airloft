@@ -1,0 +1,1 @@
+# API Doc### Org- Org Name- Org Quota (in Credits)- Org Role (admin, dev, locked)### Loft- Loft Type (Custom or Marketplace)- Loft OS- Loft Size (instance size in RAM)- Loft Interior (Docker, Java, Python, Node)- Loft Bridge (Internal, External)
