@@ -1,0 +1,26 @@
+{
+  "name": "airloft",
+  "version": "0.1.0",
+  "description": "A Lightweight Cloud Management System",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AudioHouse/project-airloft.git"
+  },
+  "keywords": [
+    "Cloud",
+    "Restful",
+    "Management",
+    "AWS",
+    "EC2"
+  ],
+  "author": "Austin Miller",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AudioHouse/project-airloft/issues"
+  },
+  "homepage": "https://github.com/AudioHouse/project-airloft#readme"
+}
