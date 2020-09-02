@@ -12,6 +12,6 @@ module.exports = {
     },
     hashAlgo: "sha256",
     digestEncoding: "base64",
-    mongoUri: "mongodb://mongo:27017/airloft",
+    mongoUri: "mongodb://127.0.0.1:27017/airloft",
 
 };
