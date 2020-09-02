@@ -1,10 +1,8 @@
 const config = require('./common/config/env.config.js');
-
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-
 const groupRoutes = require('./api/routes/group.route');
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
 
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -21,7 +19,6 @@ app.use(function (req, res, next) {
 
 app.use(bodyParser.json());
 groupRoutes.routesConfig(app);
-
 
 app.listen(config.port, function () {
     console.log('app listening at port %s', config.port);
