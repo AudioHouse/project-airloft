@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ba70c6fc-901c-4aac-9039-ad1f4826ee59",
+		"_postman_id": "0dccaa43-4860-4cf8-8fc3-1f31de004638",
 		"name": "Airloft-Groups",
 		"description": "RESTful calls that can test the Groups API for AirLoft",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -8,6 +8,20 @@
 	"item": [
 		{
 			"name": "POST Group",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c7138544-e4aa-41dc-9759-929d9ea027a5",
+						"exec": [
+							"pm.expect(pm.response.code).to.eql(201);\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"group-id\", jsonData['id']);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {
 					"accept-encoding": true,
@@ -26,34 +40,13 @@
 					}
 				],
 				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "name",
-							"value": "test",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "test",
-							"type": "text"
-						},
-						{
-							"key": "quota",
-							"value": "20",
-							"type": "text"
-						},
-						{
-							"key": "isAdmin",
-							"value": "true",
-							"type": "text"
-						},
-						{
-							"key": "isLocked",
-							"value": "false",
-							"type": "text"
+					"mode": "raw",
+					"raw": "{ \r\n    \"name\": \"test\", \r\n    \"password\": \"blobby\", \r\n    \"quota\": \"20\", \r\n    \"isAdmin\": \"true\", \r\n    \"isLocked\": \"false\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
-					]
+					}
 				},
 				"url": {
 					"raw": "http://{{node-server}}/api/groups",
@@ -68,14 +61,67 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "GET Group by Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "43884766-5e33-4723-ba46-49e73edfbf93",
+						"exec": [
+							"pm.expect(pm.response.code).to.eql(200);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept-encoding": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{node-server}}/api/groups/{{group-id}}",
+					"protocol": "http",
+					"host": [
+						"{{node-server}}"
+					],
+					"path": [
+						"api",
+						"groups",
+						"{{group-id}}"
+					]
+				}
+			},
+			"response": []
 		}
 	],
-	"variable": [
+	"event": [
 		{
-			"id": "c12d1662-f897-415d-8a10-3eb657e3c2a1",
-			"key": "NodeServer",
-			"value": "localhost:3600",
-			"type": "string"
+			"listen": "prerequest",
+			"script": {
+				"id": "29f33116-ee70-4ce3-a850-1c49f0b7e53a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "43b5cfd2-6804-453b-82b5-08aa0941f1f4",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }
