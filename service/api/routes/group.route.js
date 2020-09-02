@@ -4,4 +4,7 @@ exports.routesConfig = (app) => {
     app.post('/api/groups', [
         GroupsController.insert
     ]);
+    app.get('/api/groups/:groupId', [
+        GroupsController.getById
+    ]);
 }

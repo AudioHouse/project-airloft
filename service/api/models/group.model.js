@@ -17,3 +17,13 @@ exports.createGroup = (groupData) => {
     return group.save();
 };
 
+exports.findGroupById = (id) => {
+    console.log(`Retrieving group with id: ${id}`)
+    return Group.findById(id).then(result => {
+        result = result.toJSON();
+        delete result._id;
+        delete result.__v;
+        result.groupId = id;
+        return result;
+    });
+};

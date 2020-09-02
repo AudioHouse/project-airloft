@@ -11,3 +11,9 @@ exports.insert = (req, res) => {
         res.status(201).send({id: result._id});
     });
 }
+
+exports.getById = (req, res) => {
+    GroupModel.findGroupById(req.params.groupId).then(result => {
+        res.status(200).send(result);
+    })
+}
