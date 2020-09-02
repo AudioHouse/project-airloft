@@ -12,6 +12,7 @@ const groupSchema = new Schema({
 const Group = mongoose.model('Groups', groupSchema);
 
 exports.createGroup = (groupData) => {
+    console.log(`Persisting new group: ${JSON.stringify(groupData)}`)
     const group = new Group(groupData);
     return group.save();
 };
