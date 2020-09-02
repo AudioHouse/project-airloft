@@ -1,4 +1,4 @@
-import mongoose from '../../common/connector/mongoose.service'
+const mongoose = require('../../common/connectors/mongoose.connector').mongoose;
 const Schema = mongoose.Schema;
 
 const groupSchema = new Schema({

@@ -1,6 +1,6 @@
-import GroupModel from '../models/group.model'
-import AppConfig from '../../common/config/env.config'
-import crypto from 'crypto';
+const GroupModel = require('../models/group.model');
+const AppConfig = require('../../common/config/env.config');
+const crypto = require('crypto');
 
 exports.insert = (req, res) => {
     let passwordHash = crypto.createHash(AppConfig.hashAlgo)

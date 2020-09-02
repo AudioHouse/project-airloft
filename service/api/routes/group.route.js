@@ -1,6 +1,6 @@
+const GroupsController = require ('../controllers/group.controller')
 
-
-export function routesConfig(app) {
+exports.routesConfig = (app) => {
     app.post('/api/groups', [
         GroupsController.insert
     ]);

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 let count = 0;
 const MONGO_URI = 'mongodb://mongo:27017/rest-tutorial';
@@ -16,7 +16,7 @@ const OPTIONS = {
 };
 
 const connectWithRetry = () => {
-    console.log('Connecting to MongoDB with retry of ');
+    console.log('Connecting to MongoDB with retry enabled');
     mongoose.connect(MONGO_URI, OPTIONS).then(() => {
         console.log("Successfully connected to MongoDB");
     }).catch(error => {
