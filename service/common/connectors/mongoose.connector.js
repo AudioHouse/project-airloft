@@ -1,31 +1,13 @@
 const mongoose = require('mongoose');
+const AppConfig = require('../config/env.config');
 
-let count = 0;
-const MONGO_URI = 'mongodb://mongo:27017/rest-tutorial';
-const RETRY_MILLIS = 5000;
-const OPTIONS = {
-    autoIndex: false, // Don't build indexes
-    reconnectTries: 30, // Retry up to 30 times
-    reconnectInterval: 500, // Reconnect every 500ms
-    poolSize: 10, // Maintain up to 10 socket connections
-    // If not connected, return errors immediately rather than waiting for reconnect
-    bufferMaxEntries: 0,
-    //geting rid off the depreciation errors
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-};
+//Set up default mongoose connection
+mongoose.connect(AppConfig.mongoUri, { useNewUrlParser: true });
 
-const connectWithRetry = () => {
-    console.log('Connecting to MongoDB with retry enabled');
-    mongoose.connect(MONGO_URI, OPTIONS).then(() => {
-        console.log("Successfully connected to MongoDB");
-    }).catch(error => {
-        console.log('Could not connect to MongoDB: ' + str(error));
-        console.log(`Retrying connection after ${RETRY_MILLIS} seconds`, ++count);
-        setTimeout(connectWithRetry, RETRY_MILLIS);
-    });
-}
+//Get the default connection
+let db = mongoose.connection;
 
-connectWithRetry();
+//Bind connection to error event (to get notification of connection errors)
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 exports.mongoose = mongoose;

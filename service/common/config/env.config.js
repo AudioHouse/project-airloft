@@ -2,7 +2,7 @@ module.exports = {
     port: 3600,
     appEndpoint: "http://localhost:3600",
     apiEndpoint: "http://localhost:3600",
-    jwt_secret: "myS33!!creeeT",
+    jwt_secret: "Su-Per//Sec!!ret/Key-now-available-in-GitHub",
     jwt_expiration_in_seconds: 36000,
     environment: "dev",
     permissionLevels: {
@@ -11,5 +11,7 @@ module.exports = {
         "ADMIN": 2048
     },
     hashAlgo: "sha256",
-    digestEncoding: "base64"
+    digestEncoding: "base64",
+    mongoUri: "mongodb://mongo:27017/airloft",
+
 };
