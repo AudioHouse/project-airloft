@@ -13,7 +13,7 @@ exports.insert = (req, res) => {
 }
 
 exports.getById = (req, res) => {
-    GroupModel.findGroupById(req.params.groupId).then(result => {
+    GroupModel.findGroupById(req.params.groupId, true).then(result => {
         (result === undefined) ? 
         res.status(404).send('Group not found with id: ' + req.params.groupId) :
         res.status(200).send(result);
