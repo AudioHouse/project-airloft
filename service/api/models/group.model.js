@@ -9,12 +9,24 @@ const groupSchema = new Schema({
     isLocked: Boolean
 })
 
+groupSchema.virtual('id').get(function () {
+    return this._id.toHexString();
+});
+
+// Ensure virtual fields are serialised.
+groupSchema.set('toJSON', {
+    virtuals: true
+});
+
 const Group = mongoose.model('Groups', groupSchema);
 
 exports.createGroup = (groupData) => {
     console.log(`Persisting new group: ${JSON.stringify(groupData)}`)
     const group = new Group(groupData);
-    return group.save();
+    return group.save().catch(reason => {
+        console.log(`ERROR: Could not create new group. Reason: "${reason}"`);
+        return undefined;
+    });
 };
 
 exports.findGroupById = (id, hidePass) => {
