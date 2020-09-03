@@ -25,5 +25,8 @@ exports.findGroupById = (id) => {
         delete result.__v;
         result.groupId = id;
         return result;
+    }).catch(reason => {
+        console.log(`ERROR: Could not get group by id. Reason: "${reason}"`);
+        return undefined;
     });
 };
