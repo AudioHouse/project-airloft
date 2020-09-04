@@ -9,7 +9,7 @@ exports.insert = (req, res) => {
     req.body.password = passwordHash;
     GroupModel.createGroup(req.body).then(result => {
         (result === undefined) ?
-        res.status(400).send(`Invalid request to create group: ${JSON.stringify(req.body)}`) :
+        res.status(400).send(`Invalid request to create group`) :
         res.status(201).send({id: result._id});
     });
 }
