@@ -13,5 +13,11 @@ module.exports = {
     hashAlgo: "sha512",
     digestEncoding: "base64",
     mongoUri: "mongodb://127.0.0.1:27017/airloft",
-
+    defaultAdminAccount: {
+        name: "admin", 
+        password: "admin123", 
+        quota: 20, 
+        isAdmin: true, 
+        isLocked: false
+    }
 };
