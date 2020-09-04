@@ -7,16 +7,18 @@
 	},
 	"item": [
 		{
-			"name": "POST Group - Should Pass 201",
+			"name": "POST Group - Should 201",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "c7138544-e4aa-41dc-9759-929d9ea027a5",
 						"exec": [
-							"pm.expect(pm.response.code).to.eql(201);\r",
-							"var jsonData = JSON.parse(responseBody);\r",
-							"postman.setEnvironmentVariable(\"group-id\", jsonData['id']);"
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    var jsonData = JSON.parse(responseBody);\r",
+							"    postman.setEnvironmentVariable(\"group-id\", jsonData['id']);\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -63,14 +65,16 @@
 			"response": []
 		},
 		{
-			"name": "POST Group - Should Fail 400",
+			"name": "POST Group - Should 400",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "f6d47afe-401e-4cd0-ae20-7c6a1cfdf090",
 						"exec": [
-							"pm.expect(pm.response.code).to.eql(400);"
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -95,7 +99,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \r\n    \"name\": \"test-user\", \r\n    \"password\": \"blobby\", \r\n    \"quota\": \"20\", \r\n    \"isAdmin\": 12345, \r\n    \"isLocked\": \"false\" \r\n}",
+					"raw": "{ \r\n    \"name\": \"test-user\", \r\n    \"password\": \"blobby\", \r\n    \"isAdmin\": false, \r\n    \"isLocked\": \"false\" \r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -117,15 +121,16 @@
 			"response": []
 		},
 		{
-			"name": "GET Group by Id - Should Pass 200",
+			"name": "GET Group by Id - Should 200",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "43884766-5e33-4723-ba46-49e73edfbf93",
 						"exec": [
-							"pm.expect(pm.response.code).to.eql(200);\r",
-							""
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -155,15 +160,16 @@
 			"response": []
 		},
 		{
-			"name": "GET Group by Id - Should Fail 404",
+			"name": "GET Group by Id - Should 404",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "c5f9136e-99d0-4e96-8c44-a839e527f3e3",
 						"exec": [
-							"pm.expect(pm.response.code).to.eql(404);\r",
-							""
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
