@@ -25,7 +25,7 @@ exports.createGroup = (groupData) => {
     const group = new Group(groupData);
     return group.save().catch(reason => {
         console.log(`ERROR: Could not create new group. Reason: "${reason}"`);
-        return undefined;
+        return {processingError: reason};
     });
 };
 
