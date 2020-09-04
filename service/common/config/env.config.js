@@ -10,7 +10,7 @@ module.exports = {
         "PAID_USER": 4,
         "ADMIN": 2048
     },
-    hashAlgo: "sha256",
+    hashAlgo: "sha512",
     digestEncoding: "base64",
     mongoUri: "mongodb://127.0.0.1:27017/airloft",
 
