@@ -12,7 +12,7 @@ exports.insert = (req, res) => {
         res.status(400).send(`Invalid request to create group: ${result.processingError}`) :
         res.status(201).send({id: result._id});
     });
-}
+};
 
 exports.getById = (req, res) => {
     GroupModel.findGroupById(req.params.groupId, true).then(result => {
@@ -20,12 +20,20 @@ exports.getById = (req, res) => {
         res.status(404).send(`Group not found with id: ${req.params.groupId}`) :
         res.status(200).send(result);
     });
-}
+};
 
 exports.patchById = (req, res) => {
     GroupModel.patchGroupById(req.params.groupId, req.body).then(result => {
         (result.hasOwnProperty('processingError')) ?
         res.status(400).send(`Could not update group: ${result.processingError}`) :
         res.status(204).send();
-    })
+    });
+};
+
+exports.getAllGroups = (req, res) => {
+    GroupModel.getAllGroups().then(result => {
+        (result.hasOwnProperty('processingError')) ?
+        res.status(500).send(`Could not get all groups: ${result.processingError}`) :
+        res.status(200).send(result);
+    });
 }

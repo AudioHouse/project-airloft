@@ -1,4 +1,4 @@
-const GroupsController = require ('../controllers/group.controller')
+const GroupsController = require('../controllers/group.controller');
 
 exports.routesConfig = (app) => {
     app.post('/api/groups', [
@@ -9,5 +9,8 @@ exports.routesConfig = (app) => {
     ]);
     app.patch('/api/groups/:groupId', [
         GroupsController.patchById
+    ]);
+    app.get('/api/groups', [
+        GroupsController.getAllGroups
     ]);
 }

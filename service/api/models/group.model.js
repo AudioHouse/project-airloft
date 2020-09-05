@@ -7,7 +7,7 @@ const groupSchema = new Schema({
     quota: {type: Number, required: [true, 'Group quota cannot be blank'], min: 0},
     isAdmin: {type: Boolean, required: [true, 'Must define group role']},
     isLocked: {type: Boolean, required: [true, 'Must define if account is locked or not']}
-})
+});
 
 groupSchema.virtual('id').get(function () {
     return this._id.toHexString();
@@ -21,7 +21,7 @@ groupSchema.set('toJSON', {
 const Group = mongoose.model('Groups', groupSchema);
 
 exports.createGroup = (groupData) => {
-    console.log(`Persisting new group: ${JSON.stringify(groupData)}`)
+    console.log(`INFO: Persisting new group: ${JSON.stringify(groupData)}`)
     const group = new Group(groupData);
     return group.save().catch(reason => {
         console.log(`ERROR: Could not create new group. Reason: "${reason}"`);
@@ -30,7 +30,7 @@ exports.createGroup = (groupData) => {
 };
 
 exports.findGroupById = (id, hidePass) => {
-    console.log(`Retrieving group with id: ${id}`)
+    console.log(`INFO: Retrieving group with id: ${id}`)
     return Group.findById(id).then(result => {
         result = result.toJSON();
         result.groupId = id;
@@ -45,7 +45,7 @@ exports.findGroupById = (id, hidePass) => {
 };
 
 exports.patchGroupById = (id, newGroupData) => {
-    console.log(`Updating group with id: ${id}`);
+    console.log(`INFO: Updating group with id: ${id}`);
     return Group.findByIdAndUpdate(id, newGroupData).then(result => {
         result = result.toJSON();
         result.groupId = id;
@@ -55,6 +55,25 @@ exports.patchGroupById = (id, newGroupData) => {
         return result;
     }).catch(reason => {
         console.log(`ERROR: Could not update group by id. Reason: "${reason}"`);
+        return {processingError: reason};
+    });
+};
+
+exports.getAllGroups = () => {
+    console.log('INFO: Fetching all groups in database')
+    return Group.find().then(result => {
+        let groupArray = [];
+        for (let index in result) {
+            let groupCopy = {...result[index]._doc};
+            groupCopy.id = groupCopy._id;
+            delete groupCopy._id;
+            delete groupCopy.__v;
+            delete groupCopy.password;
+            groupArray.push(groupCopy);
+        }
+        return groupArray;
+    }).catch(reason => {
+        console.log(`ERROR: Could not retrieve all groups. Reason: "${reason}"`);
         return {processingError: reason};
     });
 }
