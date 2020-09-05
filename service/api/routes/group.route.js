@@ -7,4 +7,7 @@ exports.routesConfig = (app) => {
     app.get('/api/groups/:groupId', [
         GroupsController.getById
     ]);
+    app.patch('/api/groups/:groupId', [
+        GroupsController.patchById
+    ]);
 }

@@ -43,3 +43,18 @@ exports.findGroupById = (id, hidePass) => {
         return undefined;
     });
 };
+
+exports.patchGroupById = (id, newGroupData) => {
+    console.log(`Updating group with id: ${id}`);
+    return Group.findByIdAndUpdate(id, newGroupData).then(result => {
+        result = result.toJSON();
+        result.groupId = id;
+        delete result._id;
+        delete result.__v;
+        delete result.password;
+        return result;
+    }).catch(reason => {
+        console.log(`ERROR: Could not update group by id. Reason: "${reason}"`);
+        return {processingError: reason};
+    });
+}

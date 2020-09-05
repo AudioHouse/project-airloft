@@ -21,3 +21,11 @@ exports.getById = (req, res) => {
         res.status(200).send(result);
     });
 }
+
+exports.patchById = (req, res) => {
+    GroupModel.patchGroupById(req.params.groupId, req.body).then(result => {
+        (result.hasOwnProperty('processingError')) ?
+        res.status(400).send(`Could not update group: ${result.processingError}`) :
+        res.status(204).send();
+    })
+}
