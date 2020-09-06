@@ -13,4 +13,7 @@ exports.routesConfig = (app) => {
     app.get('/api/groups', [
         GroupsController.getAllGroups
     ]);
+    app.delete('/api/groups/:groupId', [
+        GroupsController.removeGroupById
+    ]);
 }

@@ -33,7 +33,6 @@ exports.findGroupById = (id, hidePass) => {
     console.log(`INFO: Retrieving group with id: ${id}`)
     return Group.findById(id).then(result => {
         result = result.toJSON();
-        result.groupId = id;
         delete result._id;
         delete result.__v;
         if (hidePass) delete result.password;
@@ -47,8 +46,8 @@ exports.findGroupById = (id, hidePass) => {
 exports.patchGroupById = (id, newGroupData) => {
     console.log(`INFO: Updating group with id: ${id}`);
     return Group.findByIdAndUpdate(id, newGroupData).then(result => {
+        if (result === null) throw `Bad Request. Group ${id} does not exist`;
         result = result.toJSON();
-        result.groupId = id;
         delete result._id;
         delete result.__v;
         delete result.password;
@@ -77,3 +76,14 @@ exports.getAllGroups = () => {
         return {processingError: reason};
     });
 }
+
+exports.deleteGroupById = (id) => {
+    console.log(`INFO: Deleting group with Id: ${id}`);
+    // TODO: Check to make sure group has no outstanding resources
+    /* If a group owns applications, functions, and services, all of those
+    must be deleted before a group can successfuly be deleted. */
+    
+    return Group.remove({_id: id}).catch(reason => {
+        return {processingError: reason};
+    });
+};

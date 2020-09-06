@@ -37,3 +37,19 @@ exports.getAllGroups = (req, res) => {
         res.status(200).send(result);
     });
 }
+
+exports.removeGroupById = (req, res) => {
+    // First, ensure user exists
+    GroupModel.findGroupById(req.params.groupId, true).then(result => {
+        if (result === undefined) {
+            res.status(404).send(`Group not found with id: ${req.params.groupId}`);
+        } else {
+            // Then, delete user if exists
+            GroupModel.deleteGroupById(req.params.groupId).then(result => {
+                (result.hasOwnProperty('processingError')) ?
+                res.status(409).send(`Could not delete group by id: ${result.processingError}`):
+                res.status(204).send(result);
+            });
+        }
+    });
+};
