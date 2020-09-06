@@ -26,10 +26,10 @@ groupRoutes.routesConfig(app);
 let admin = config.defaultAdminAccount;
 admin.password = crypto.createHash(config.hashAlgo)
     .update(admin.password).digest(config.digestEncoding);
-groupModel.createGroup(admin).then((result) => {
-    (result.hasOwnProperty('processingError')) ?
-    console.log('Admin account already exists') :
-    console.log(`Created admin account`)
+groupModel.createGroup(admin).then(result => {
+    console.log(`Created admin account: ${result}`);
+}).catch(reason => {
+    console.log(`Could not create admin account: ${reason}`);
 });
 
 app.listen(config.port, function () {

@@ -8,9 +8,9 @@ exports.insert = (req, res) => {
         .digest(AppConfig.digestEncoding);
     req.body.password = passwordHash;
     GroupModel.createGroup(req.body).then(result => {
-        (result.hasOwnProperty('processingError')) ?
-        res.status(400).send(`Invalid request to create group: ${result.processingError}`) :
         res.status(201).send({id: result._id});
+    }).catch(reason => {
+        res.status(400).send(`Invalid request to create group: ${reason}`);
     });
 };
 

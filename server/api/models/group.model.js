@@ -21,11 +21,15 @@ groupSchema.set('toJSON', {
 const Group = mongoose.model('Groups', groupSchema);
 
 exports.createGroup = (groupData) => {
-    console.log(`INFO: Persisting new group: ${JSON.stringify(groupData)}`)
-    const group = new Group(groupData);
-    return group.save().catch(reason => {
-        console.log(`ERROR: Could not create new group. Reason: "${reason}"`);
-        return {processingError: reason};
+    return new Promise((resolve, reject) => {
+        console.log(`INFO: Persisting new group: ${JSON.stringify(groupData)}`)
+        const group = new Group(groupData);
+        group.save().then(result => {
+            resolve(result);
+        }).catch(reason => {
+            console.log(`ERROR: Could not create new group. Reason: "${reason}"`);
+            reject(reason);
+        });
     });
 };
 
