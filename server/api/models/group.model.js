@@ -2,11 +2,28 @@ const mongoose = require('../../common/connectors/mongoose.connector').mongoose;
 const Schema = mongoose.Schema;
 
 const groupSchema = new Schema({
-    name: { type: String, unique: true, required: [true, 'Group name cannot blank'] },
-    password: { type: String, required: [true, 'Group password cannot be blank'] },
-    quota: { type: Number, required: [true, 'Group quota cannot be blank'], min: 0 },
-    isAdmin: { type: Boolean, required: [true, 'Must define group role'] },
-    isLocked: { type: Boolean, required: [true, 'Must define if account is locked or not'] }
+    name: {
+        type: String,
+        unique: true,
+        required: [true, 'Group name cannot blank']
+    },
+    password: {
+        type: String,
+        required: [true, 'Group password cannot be blank']
+    },
+    quota: {
+        type: Number,
+        required: [true, 'Group quota cannot be blank'],
+        min: 0
+    },
+    isAdmin: {
+        type: Boolean,
+        required: [true, 'Must define group role']
+    },
+    isLocked: {
+        type: Boolean,
+        required: [true, 'Must define if account is locked or not']
+    }
 });
 
 groupSchema.virtual('id').get(function () {
