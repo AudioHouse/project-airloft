@@ -66,6 +66,19 @@ exports.findGroupById = (id, hidePass) => {
     });
 };
 
+exports.findGroupByName = ((name, hidePass) => {
+    return new Promise((resolve, reject) => {
+        console.log(`INFO: Retreiving group with name: ${name}`);
+        let result = Group.find({ groupName: name });
+        if (!result[0]) {
+            console.log(`ERROR: Could not find group with name: ${name}`);
+            reject(`Could not find group with name: ${name}`);
+        } else {
+            resolve(result[0]);
+        }
+    });
+});
+
 exports.patchGroupById = (id, newGroupData) => {
     return new Promise((resolve, reject) => {
         console.log(`INFO: Updating group with id: ${id}`);

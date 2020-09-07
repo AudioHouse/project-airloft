@@ -2,8 +2,8 @@ module.exports = {
     port: 3600,
     appEndpoint: "http://localhost:3600",
     apiEndpoint: "http://localhost:3600",
-    jwt_secret: "Su-Per//Sec!!ret/Key-now-available-in-GitHub",
-    jwt_expiration_in_seconds: 36000,
+    jwt_secret: "Su-Per//Sec!!ret/Key-now-available-on-GitHub",
+    jwt_expiration: '1h',
     environment: "dev",
     permissionLevels: {
         "NORMAL_USER": 1,
