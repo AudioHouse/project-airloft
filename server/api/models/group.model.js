@@ -2,7 +2,7 @@ const mongoose = require('../../common/connectors/mongoose.connector').mongoose;
 const Schema = mongoose.Schema;
 
 const groupSchema = new Schema({
-    name: {
+    groupName: {
         type: String,
         unique: true,
         required: [true, 'Group name cannot blank']
