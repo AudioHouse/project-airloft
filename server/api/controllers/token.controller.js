@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
 const AppConfig = require('../../common/config/env.config');
 
-exports.createToken = (res, req) => {
+exports.createToken = (req, res) => {
     try {
+        console.log(`INFO: Creating JSON Web Token`)
         let token = jwt.sign(
             req.body,
             AppConfig.jwt_secret,

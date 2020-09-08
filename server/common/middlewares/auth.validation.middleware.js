@@ -27,9 +27,9 @@ exports.verifyCorrectPassword = (req, res, next) => {
         let hashedRequestPass = crypto.createHash(AppConfig.hashAlgo)
             .update(req.body.password)
             .digest(AppConfig.digestEncoding);
-        if (hashedRequestPass === req.body.password) {
+        if (hashedRequestPass === result.password) {
             req.body = {
-                id: result.id,
+                id: result._id,
                 groupName: result.groupName,
                 isAdmin: result.isAdmin,
                 provider: 'group-name',
@@ -37,7 +37,7 @@ exports.verifyCorrectPassword = (req, res, next) => {
             };
             return next();
         } else {
-            return res.status(400).send({errors: ['Invalid groupName or password']});
+            return res.status(400).send({error: 'Invalid groupName or password'});
         }
     }).catch(reason => {
         return res.status(404).send(reason);
