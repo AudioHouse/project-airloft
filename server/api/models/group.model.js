@@ -66,7 +66,7 @@ exports.findGroupById = (id, hidePass) => {
     });
 };
 
-exports.findGroupByName = ((name, hidePass) => {
+exports.findGroupByName = (name, hidePass) => {
     return new Promise((resolve, reject) => {
         console.log(`INFO: Retreiving group with name: ${name}`);
         Group.find({ groupName: name }).then(result => {
@@ -77,22 +77,7 @@ exports.findGroupByName = ((name, hidePass) => {
             reject(reason);
         });
     });
-});
-
-// exports.findGroupByName = ((name, hidePass) => {
-//     return new Promise((resolve, reject) => {
-//         console.log(`INFO: Retreiving group with name: ${name}`);
-//         let result = Group.find({ groupName: name });
-//         console.log(result);
-//         if (!result[0]) {
-//             console.log(`ERROR: Could not find group with name: ${name}`);
-//             reject(`Could not find group with name: ${name}`);
-//         } else {
-//             console.log(`INFO: Found user with name: ${name}`)
-//             resolve(result[0]);
-//         }
-//     });
-// });
+};
 
 exports.patchGroupById = (id, newGroupData) => {
     return new Promise((resolve, reject) => {
