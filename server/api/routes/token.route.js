@@ -7,4 +7,8 @@ exports.routesConfig = (app) => {
         AuthValidation.verifyCorrectPassword,
         TokenController.createToken
     ]);
+    app.get('/api/tokens', [
+        AuthValidation.hasJwtPresent,
+        TokenController.getToken
+    ]);
 }

@@ -46,7 +46,7 @@ exports.verifyCorrectPassword = (req, res, next) => {
     });
 }
 
-exports.verifyJwtPresent = (req, res, next) => {
+exports.hasJwtPresent = (req, res, next) => {
     if (req.headers['authorization']) {
         try {
             let authorization = req.headers['authorization'].split(' ');
@@ -54,12 +54,12 @@ exports.verifyJwtPresent = (req, res, next) => {
                 req.jwt = jwt.verify(authorization[1], AppConfig.jwt_secret);
                 return next();
             } else {
-                return res.status(401).body(`Request must contain "Bearer" token in header.`);
+                return res.status(401).send(`Request must contain "Bearer" token in header.`);
             }
         } catch (err) {
-            return res.status(403).body(`Invalid token: ${err}`);
+            return res.status(401).send(`Invalid token: ${err}`);
         }
     } else {
-        return res.status(401).body('Request does not contain required token in headers.').send();
+        return res.status(401).send('Request does not contain required token in headers.');
     }
 }

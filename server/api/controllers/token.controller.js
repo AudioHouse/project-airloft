@@ -13,3 +13,13 @@ exports.createToken = (req, res) => {
         res.status(500).send({ errors: err });
     }
 };
+
+exports.getToken = (req, res) => {
+    if (req.jwt) {
+        console.log(`INFO: Getting token info for group: ${req.jwt.groupName}`)
+        res.status(200).send(req.jwt);
+    } else {
+        // technically this should never happen because of middleware
+        res.status(401).body(`Request must contain a jwt token`).send();
+    }
+};
