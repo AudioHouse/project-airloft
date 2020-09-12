@@ -1,6 +1,8 @@
 const GroupModel = require('../../api/models/group.model');
 const AppConfig = require('../config/env.config');
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
+
 
 exports.hasAuthValidFields = (req, res, next) => {
     let errors = [];
@@ -42,4 +44,22 @@ exports.verifyCorrectPassword = (req, res, next) => {
     }).catch(reason => {
         return res.status(404).send(reason);
     });
+}
+
+exports.verifyJwtPresent = (req, res, next) => {
+    if (req.headers['authorization']) {
+        try {
+            let authorization = req.headers['authorization'].split(' ');
+            if (authorization[0] === 'Bearer') {
+                req.jwt = jwt.verify(authorization[1], AppConfig.jwt_secret);
+                return next();
+            } else {
+                return res.status(401).body(`Request must contain "Bearer" token in header.`);
+            }
+        } catch (err) {
+            return res.status(403).body(`Invalid token: ${err}`);
+        }
+    } else {
+        return res.status(401).body('Request does not contain required token in headers.').send();
+    }
 }
