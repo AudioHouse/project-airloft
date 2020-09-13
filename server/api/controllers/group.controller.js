@@ -39,9 +39,9 @@ exports.getAllGroups = (req, res) => {
 };
 
 exports.removeGroupById = (req, res) => {
-    // First, ensure user exists
+    // First, ensure group exists
     GroupModel.findGroupById(req.params.groupId, true).then(() => {
-        // Then delete user
+        // Then delete group
         GroupModel.deleteGroupById(req.params.groupId).then(result => {
             res.status(204).send(result);
         }).catch(reason => {
