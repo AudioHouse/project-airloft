@@ -42,7 +42,7 @@ exports.verifyCorrectPassword = (req, res, next) => {
             return res.status(400).send({error: 'Invalid groupName or password'});
         }
     }).catch(reason => {
-        return res.status(404).send(reason);
+        return res.status(404).send(`Group with name ${req.body.groupName} does not exist.`);
     });
 }
 
@@ -54,12 +54,36 @@ exports.hasJwtPresent = (req, res, next) => {
                 req.jwt = jwt.verify(authorization[1], AppConfig.jwt_secret);
                 return next();
             } else {
-                return res.status(401).send(`Request must contain "Bearer" token in header.`);
+                return res.status(401).send('Request must contain "Bearer" token in header.');
             }
         } catch (err) {
             return res.status(401).send(`Invalid token: ${err}`);
         }
     } else {
         return res.status(401).send('Request does not contain required token in headers.');
+    }
+}
+
+exports.onlyAdminCanDoThisAction = (req, res, next) => {
+    if (req.jwt) {
+        if (req.jwt.isAdmin) {
+            return next();
+        } else {
+            return res.status(403).send('Only admin accounts can perform this action');
+        }
+    } else {
+        return res.status(401).send('Request must contain a jwt token');
+    }
+}
+
+exports.onlySameGroupOrAdminCanDoThisAction = (req, res, next) => {
+    if (req.jwt) {
+        if ((req.jwt.isAdmin) || (req.params && req.params.groupId && req.params.groupId === req.jwt.id)) {
+            return next();
+        } else {
+            return res.status(403).send('Only an admin or account of the same group can perform this action');
+        }
+    } else {
+        return res.status(401).send('Request must contain a jwt token');
     }
 }
