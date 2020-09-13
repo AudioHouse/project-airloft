@@ -2,7 +2,7 @@
   "name": "airloft",
   "version": "0.1.0",
   "description": "A Lightweight Cloud Management System",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,7 +18,7 @@
     "EC2"
   ],
   "author": "Austin Miller",
-  "license": "ISC",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/AudioHouse/project-airloft/issues"
   },
