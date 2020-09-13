@@ -32,6 +32,16 @@
 				}
 			},
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access-token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [
 					{
@@ -43,7 +53,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \r\n    \"name\": \"test-user\", \r\n    \"password\": \"blobby\", \r\n    \"quota\": \"20\", \r\n    \"isAdmin\": \"true\", \r\n    \"isLocked\": \"false\" \r\n}",
+					"raw": "{ \r\n    \"groupName\": \"test-user\", \r\n    \"password\": \"blobby\", \r\n    \"quota\": \"20\", \r\n    \"isAdmin\": \"true\", \r\n    \"isLocked\": \"false\" \r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -88,6 +98,16 @@
 				}
 			},
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access-token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [
 					{
@@ -99,7 +119,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \r\n    \"name\": \"test-user\", \r\n    \"password\": \"blobby\", \r\n    \"isAdmin\": false, \r\n    \"isLocked\": \"false\" \r\n}",
+					"raw": "{ \r\n    \"groupName\": \"test-user\", \r\n    \"password\": \"blobby\", \r\n    \"isAdmin\": false, \r\n    \"isLocked\": \"false\" \r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -142,6 +162,16 @@
 				}
 			},
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access-token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -181,6 +211,16 @@
 				}
 			},
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access-token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -222,6 +262,16 @@
 				}
 			},
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access-token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PATCH",
 				"header": [
 					{
@@ -233,7 +283,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \r\n    \"name\": \"woot\", \r\n    \"password\": \"blobby2\", \r\n    \"quota\": \"35\", \r\n    \"isAdmin\": \"true\", \r\n    \"isLocked\": \"false\" \r\n}",
+					"raw": "{ \r\n    \"groupName\": \"woot\", \r\n    \"password\": \"blobby2\", \r\n    \"quota\": \"35\", \r\n    \"isAdmin\": \"true\", \r\n    \"isLocked\": \"false\" \r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -277,6 +327,16 @@
 				}
 			},
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access-token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -315,6 +375,16 @@
 				}
 			},
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access-token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
 				"header": [],
 				"url": {
