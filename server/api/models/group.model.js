@@ -70,11 +70,13 @@ exports.findGroupByName = (name, hidePass) => {
     return new Promise((resolve, reject) => {
         console.log(`INFO: Retreiving group with name: ${name}`);
         Group.find({ groupName: name }).then(result => {
-            console.log(`INFO: Found group with name: ${name}`);
-            resolve(result[0]);
-        }).catch(reason => {
-            console.log(`ERROR: Could not find group with name: ${name}. Reason: ${reason}`);
-            reject(reason);
+            if (result.length == 1) {
+                console.log(`INFO: Found group: ${name}`);
+                resolve(result[0]);
+            } else {
+                console.log(`ERROR: Could not find group with name: ${name}`);
+                reject(`Could not find group with name: ${name}`)
+            }
         });
     });
 };
