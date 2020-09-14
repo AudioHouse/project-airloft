@@ -2,6 +2,7 @@ const config = require('./common/config/env.config.js');
 const groupModel = require('./api/models/group.model');
 const GroupRoutes = require('./api/routes/group.route');
 const TokenRoutes = require('./api/routes/token.route');
+const SystemRoutes = require('./api/routes/system.route');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -23,6 +24,7 @@ app.use(function (req, res, next) {
 app.use(bodyParser.json());
 GroupRoutes.routesConfig(app);
 TokenRoutes.routesConfig(app);
+SystemRoutes.routesConfig(app);
 
 // create admin account on application startup
 let admin = config.defaultAdminAccount;
