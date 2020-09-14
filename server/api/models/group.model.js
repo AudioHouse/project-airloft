@@ -92,6 +92,7 @@ exports.patchGroupById = (id, newGroupData) => {
             delete result.password;
             resolve(result);
         }).catch(reason => {
+            // TODO: Remove catch bc findByIdAndUpdate doesnt return promise 
             console.log(`ERROR: Could not update group by id. Reason: "${reason}"`);
             reject(reason);
         });
@@ -113,6 +114,7 @@ exports.getAllGroups = () => {
             }
             resolve(groupArray);
         }).catch(reason => {
+            // TODO: remove catch bs find doesnt return promise 
             console.log(`ERROR: Could not retrieve all groups. Reason: "${reason}"`);
             reject(reason);
         });
@@ -126,9 +128,10 @@ exports.deleteGroupById = (id) => {
         /* If a group owns applications, functions, and services, all of those
         must be deleted before a group can successfuly be deleted. */
 
-        return Group.remove({ _id: id }).then(result =>{
+        return Group.deleteOne({ _id: id }).then(result =>{
             resolve(result);
         }).catch(reason => {
+            // TODO: remove catch bs deleteOne doesnt return promise 
             reject(reason);
         });
     });

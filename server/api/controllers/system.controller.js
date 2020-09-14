@@ -14,4 +14,10 @@ exports.getAwsCreds = (req, res) => {
     }).catch(reason => {
         res.status(404).send(`Did not find AWS credentials: ${reason}`);
     });
-}
+};
+
+exports.deleteAwsCreds = (req, res) => {
+    AwsCredModel.deleteCredentials(() => {
+        res.status(204).send();
+    });
+};

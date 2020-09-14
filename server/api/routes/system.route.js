@@ -12,5 +12,10 @@ exports.routesConfig = (app) => {
         AuthValidation.onlyAdminCanDoThisAction,
         SystemController.getAwsCreds
     ]);
+    app.delete('/api/system/awscreds', [
+        AuthValidation.hasJwtPresent,
+        AuthValidation.onlyAdminCanDoThisAction,
+        SystemController.deleteAwsCreds
+    ]);
 }
 

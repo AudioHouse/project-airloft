@@ -31,14 +31,18 @@ exports.createCredentials = (credData) => {
     return new Promise((resolve, reject) => {
         console.log(`INFO: Persisting new aws credentials: ${JSON.stringify(credData)}`);
         const creds = new AwsCreds(credData);
-        if (doCredsAlreadyExist) {
-            reject('AWS Credentials already exist for the system.');
-        }
-        creds.save().then(result => {
-            resolve(result);
-        }).catch(reason => {
-            console.log(`ERROR: Could not save system AWS credentials: ${reason}`);
-            reject(reason);
+        AwsCreds.exists().then(exists => {
+            if(exists) {
+                reject('AWS Credentials already exist for the system.');
+                return;
+            } else {
+                creds.save().then(result => {
+                    resolve(result);
+                }).catch(reason => {
+                    console.log(`ERROR: Could not save system AWS credentials: ${reason}`);
+                    reject(reason);
+                });
+            }
         });
     });
 };
@@ -48,16 +52,15 @@ exports.getCrednetials = () => {
         console.log('INFO: Getting System AWS Credentials');
         AwsCreds.find().then(result => {
             if (result.length > 0) {
-            console.log(result);
-            resolve(result);
+                resolve(result);
             } else {
                 reject('Did not find any system aws credentials');
             }
         });
     });
-}
+};
 
-let doCredsAlreadyExist = () => {
-    let creds = AwsCreds.find();
-    return (creds.length > 1); 
+exports.deleteCredentials = (callback) => {
+    console.log(`INFO: Deleting system AWS credentials.`);
+    AwsCreds.deleteMany({}, callback);
 }
