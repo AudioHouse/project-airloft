@@ -84,17 +84,20 @@ exports.findGroupByName = (name, hidePass) => {
 exports.patchGroupById = (id, newGroupData) => {
     return new Promise((resolve, reject) => {
         console.log(`INFO: Updating group with id: ${id}`);
-        Group.findByIdAndUpdate(id, newGroupData).then(result => {
-            if (result === null) throw `Bad Request. Group ${id} does not exist`;
-            result = result.toJSON();
-            delete result._id;
-            delete result.__v;
-            delete result.password;
-            resolve(result);
-        }).catch(reason => {
-            // TODO: Remove catch bc findByIdAndUpdate doesnt return promise 
-            console.log(`ERROR: Could not update group by id. Reason: "${reason}"`);
-            reject(reason);
+        Group.findByIdAndUpdate(id, newGroupData, (err, res) => {
+            if (err) {
+                console.log(`ERROR: Could not patch group by id: ${id}, reason: ${err}`);
+                reject(err);
+            } else if (res === null || res === undefined) {
+                console.log(`ERROR: Group with id: ${id} does not exist. Cannot patch.`);
+                reject(`Group with id: ${id} does not exist. Cannot patch`);
+            } else {
+                result = res.toJSON();
+                delete result._id;
+                delete result.__v;
+                delete result.password;
+                resolve(result);
+            }
         });
     });
 };
@@ -102,14 +105,14 @@ exports.patchGroupById = (id, newGroupData) => {
 exports.getAllGroups = () => {
     return new Promise((resolve, reject) => {
         console.log('INFO: Fetching all groups in database')
-        Group.find((err, res) => {
+        Group.find((err, result) => {
             if (err) {
                 console.log(`ERROR: Could not get all groups: ${err}`)
                 reject(err);
             } else {
                 let groupArray = [];
-                for (let index in res) {
-                    let groupCopy = { ...res[index]._doc };
+                for (let index in result) {
+                    let groupCopy = { ...result[index]._doc };
                     groupCopy.id = groupCopy._id;
                     delete groupCopy._id;
                     delete groupCopy.__v;
