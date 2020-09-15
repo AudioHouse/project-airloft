@@ -102,21 +102,22 @@ exports.patchGroupById = (id, newGroupData) => {
 exports.getAllGroups = () => {
     return new Promise((resolve, reject) => {
         console.log('INFO: Fetching all groups in database')
-        Group.find().then(result => {
-            let groupArray = [];
-            for (let index in result) {
-                let groupCopy = { ...result[index]._doc };
-                groupCopy.id = groupCopy._id;
-                delete groupCopy._id;
-                delete groupCopy.__v;
-                delete groupCopy.password;
-                groupArray.push(groupCopy);
+        Group.find((err, res) => {
+            if (err) {
+                console.log(`ERROR: Could not get all groups: ${err}`)
+                reject(err);
+            } else {
+                let groupArray = [];
+                for (let index in res) {
+                    let groupCopy = { ...res[index]._doc };
+                    groupCopy.id = groupCopy._id;
+                    delete groupCopy._id;
+                    delete groupCopy.__v;
+                    delete groupCopy.password;
+                    groupArray.push(groupCopy);
+                }
+                resolve(groupArray);
             }
-            resolve(groupArray);
-        }).catch(reason => {
-            // TODO: remove catch bs find doesnt return promise 
-            console.log(`ERROR: Could not retrieve all groups. Reason: "${reason}"`);
-            reject(reason);
         });
     });
 }
@@ -128,11 +129,12 @@ exports.deleteGroupById = (id) => {
         /* If a group owns applications, functions, and services, all of those
         must be deleted before a group can successfuly be deleted. */
 
-        return Group.deleteOne({ _id: id }).then(result =>{
-            if (result && result.deletedCount && result.deletedCount > 0) {
-                resolve();
+        return Group.deleteOne({ _id: id }, (err) => {
+            if (err) {
+                console.log(`Could not delete group with id: ${id}: reason: ${err}`);
+                reject(err);
             } else {
-                reject(`Could not delete Group with ID: ${id}`);
+                resolve();
             }
         });
     });
