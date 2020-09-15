@@ -42,8 +42,8 @@ exports.removeGroupById = (req, res) => {
     // First, ensure group exists
     GroupModel.findGroupById(req.params.groupId, true).then(() => {
         // Then delete group
-        GroupModel.deleteGroupById(req.params.groupId).then(result => {
-            res.status(204).send(result);
+        GroupModel.deleteGroupById(req.params.groupId).then(() => {
+            res.status(204).send();
         }).catch(reason => {
             res.status(409).send(`Could not delete group by id: ${reason}`);
         });

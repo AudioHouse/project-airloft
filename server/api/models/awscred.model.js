@@ -52,7 +52,7 @@ exports.getCrednetials = () => {
         console.log('INFO: Getting System AWS Credentials');
         AwsCreds.find().then(result => {
             if (result.length > 0) {
-                resolve(result);
+                resolve(result[0]);
             } else {
                 reject('Did not find any system aws credentials');
             }

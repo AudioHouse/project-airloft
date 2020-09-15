@@ -129,10 +129,11 @@ exports.deleteGroupById = (id) => {
         must be deleted before a group can successfuly be deleted. */
 
         return Group.deleteOne({ _id: id }).then(result =>{
-            resolve(result);
-        }).catch(reason => {
-            // TODO: remove catch bs deleteOne doesnt return promise 
-            reject(reason);
+            if (result && result.deletedCount && result.deletedCount > 0) {
+                resolve();
+            } else {
+                reject(`Could not delete Group with ID: ${id}`);
+            }
         });
     });
 };
